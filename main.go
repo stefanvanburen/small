@@ -14,22 +14,22 @@ func main() {
 		if len(os.Args) < 2 {
 			fmt.Println("Uhh here's some help")
 		}
-		s := transform(smallcaps, os.Args[1:]...)
+		s := performTransform(smallcaps, os.Args[1:]...)
 		fmt.Println(s)
 	} else if info.Size() > 0 {
 		scanner := bufio.NewScanner(os.Stdin)
 		for scanner.Scan() {
-			str := transform(smallcaps, scanner.Text())
+			str := performTransform(smallcaps, scanner.Text())
 			fmt.Println(str)
 		}
 	}
 }
 
-func transform(mapping map[string]string, input ...string) string {
+func performTransform(t transform, input ...string) string {
 	sb := strings.Builder{}
 	for _, strs := range input {
 		for _, char := range strs {
-			if val, ok := mapping[strings.ToUpper(string(char))]; ok {
+			if val, ok := t[strings.ToUpper(string(char))]; ok {
 				sb.WriteString(val)
 			} else {
 				sb.WriteString(string(char))

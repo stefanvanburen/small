@@ -1,7 +1,9 @@
 package main
 
+type transform map[string]string
+
 // A map to small caps
-var smallcaps = map[string]string{
+var smallcaps = transform{
 	"A": "ᴀ",
 	"B": "ʙ ",
 	"C": "ᴄ",
@@ -30,7 +32,7 @@ var smallcaps = map[string]string{
 	"Z": "ᴢ",
 }
 
-var boldSerif = map[string]string{
+var boldSerif = transform{
 	"A": "𝐀",
 	"B": "𝐁",
 	"C": "𝐂",
@@ -85,7 +87,7 @@ var boldSerif = map[string]string{
 	"z": "𝐳",
 }
 
-var italicSerif = map[string]string{
+var italicSerif = transform{
 	"A": "𝐴",
 	"B": "𝐵",
 	"C": "𝐶",
@@ -140,7 +142,7 @@ var italicSerif = map[string]string{
 	"z": "𝑧",
 }
 
-var boldItalicSerif = map[string]string{
+var boldItalicSerif = transform{
 	"A": "𝑨",
 	"B": "𝑩",
 	"C": "𝑪",
@@ -195,7 +197,7 @@ var boldItalicSerif = map[string]string{
 	"z": "𝒛",
 }
 
-var script = map[string]string{
+var script = transform{
 	"A": "𝒜",
 	"B": " ",
 	"C": "𝒞",
@@ -250,7 +252,7 @@ var script = map[string]string{
 	"z": "𝓏",
 }
 
-var fraktur = map[string]string{
+var fraktur = transform{
 	"A": "𝔄",
 	"B": "𝔅",
 	"C": " ",
@@ -305,7 +307,7 @@ var fraktur = map[string]string{
 	"z": "𝔷",
 }
 
-var doublestruck = map[string]string{
+var doublestruck = transform{
 	"A": "𝔸",
 	"B": "𝔹",
 	"C": " ",
@@ -360,7 +362,7 @@ var doublestruck = map[string]string{
 	"z": "𝕫",
 }
 
-var frakturBold = map[string]string{
+var frakturBold = transform{
 	"A": "𝕬",
 	"B": "𝕭",
 	"C": "𝕮",
@@ -415,7 +417,7 @@ var frakturBold = map[string]string{
 	"z": "𝖟",
 }
 
-var sans = map[string]string{
+var sans = transform{
 	"A": "𝖠",
 	"B": "𝖡",
 	"C": "𝖢",
@@ -470,7 +472,7 @@ var sans = map[string]string{
 	"z": "𝗓",
 }
 
-var sansBold = map[string]string{
+var sansBold = transform{
 	"A": "𝗔",
 	"B": "𝗕",
 	"C": "𝗖",
@@ -525,7 +527,7 @@ var sansBold = map[string]string{
 	"z": "𝘇",
 }
 
-var sansItalic = map[string]string{
+var sansItalic = transform{
 	"A": "𝘈",
 	"B": "𝘉",
 	"C": "𝘊",
@@ -580,62 +582,7 @@ var sansItalic = map[string]string{
 	"z": "𝘻",
 }
 
-var sansBoldItalic = map[string]string{
-	"A": "𝘼",
-	"B": "𝘽",
-	"C": "𝘾",
-	"D": "𝘿",
-	"E": "𝙀",
-	"F": "𝙁",
-	"G": "𝙂",
-	"H": "𝙃",
-	"I": "𝙄",
-	"J": "𝙅",
-	"K": "𝙆",
-	"L": "𝙇",
-	"M": "𝙈",
-	"N": "𝙉",
-	"O": "𝙊",
-	"P": "𝙋",
-	"Q": "𝙌",
-	"R": "𝙍",
-	"S": "𝙎",
-	"T": "𝙏",
-	"U": "𝙐",
-	"V": "𝙑",
-	"W": "𝙒",
-	"X": "𝙓",
-	"Y": "𝙔",
-	"Z": "𝙕",
-	"a": "𝙖",
-	"b": "𝙗",
-	"c": "𝙘",
-	"d": "𝙙",
-	"e": "𝙚",
-	"f": "𝙛",
-	"g": "𝙜",
-	"h": "𝙝",
-	"i": "𝙞",
-	"j": "𝙟",
-	"k": "𝙠",
-	"l": "𝙡",
-	"m": "𝙢",
-	"n": "𝙣",
-	"o": "𝙤",
-	"p": "𝙥",
-	"q": "𝙦",
-	"r": "𝙧",
-	"s": "𝙨",
-	"t": "𝙩",
-	"u": "𝙪",
-	"v": "𝙫",
-	"w": "𝙬",
-	"x": "𝙭",
-	"y": "𝙮",
-	"z": "𝙯",
-}
-
-var sansBoldItalic = map[string]string{
+var sansBoldItalic = transform{
 	"A": "𝘼",
 	"B": "𝘽",
 	"C": "𝘾",
@@ -691,7 +638,7 @@ var sansBoldItalic = map[string]string{
 }
 
 // TODO: fairly certain these are the same
-var monospace = map[string]string{
+var monospace = transform{
 	"A": "𝙰",
 	"B": "𝙱",
 	"C": "𝙲",
