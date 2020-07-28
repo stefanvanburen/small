@@ -1,9 +1,73 @@
-package main
+package small
 
-type transform map[string]string
+import (
+	"errors"
+	"strings"
+)
 
-// A map to small caps
-var smallcaps = transform{
+type Transform map[string]string
+
+func PerformTransform(t Transform, input ...string) string {
+	sb := strings.Builder{}
+	numInputs := len(input)
+
+	for i, strs := range input {
+		for _, char := range strs {
+			c := string(char)
+
+			if val, ok := t[c]; ok {
+				sb.WriteString(val)
+			} else {
+				sb.WriteString(c)
+			}
+		}
+
+		if numInputs-1 != i {
+			// Write space if we're taking in multiple inputs
+			sb.WriteString(" ")
+		}
+	}
+
+	return sb.String()
+}
+
+var ErrNotFound = errors.New("transform not found")
+
+func GetTransform(transformName string) (Transform, error) {
+	switch transformName {
+	case "", "smallcaps":
+		return smallcaps, nil
+	case "boldSerif":
+		return boldSerif, nil
+	case "italicSerif":
+		return italicSerif, nil
+	case "boldItalicSerif":
+		return boldItalicSerif, nil
+	case "sans":
+		return sans, nil
+	case "boldSans":
+		return boldSans, nil
+	case "italicSans":
+		return italicSans, nil
+	case "boldItalicSans":
+		return boldItalicSans, nil
+	case "script":
+		return script, nil
+	case "fraktur":
+		return fraktur, nil
+	case "frakturBold":
+		return frakturBold, nil
+	case "doublestruck":
+		return doublestruck, nil
+	case "monospace":
+		return monospace, nil
+	default:
+		return nil, ErrNotFound
+	}
+}
+
+// A map to small caps.
+var smallcaps = Transform{
 	"A": "ᴀ",
 	"B": "ʙ ",
 	"C": "ᴄ",
@@ -32,7 +96,7 @@ var smallcaps = transform{
 	"Z": "ᴢ",
 }
 
-var boldSerif = transform{
+var boldSerif = Transform{
 	"A": "𝐀",
 	"B": "𝐁",
 	"C": "𝐂",
@@ -87,7 +151,7 @@ var boldSerif = transform{
 	"z": "𝐳",
 }
 
-var italicSerif = transform{
+var italicSerif = Transform{
 	"A": "𝐴",
 	"B": "𝐵",
 	"C": "𝐶",
@@ -121,7 +185,7 @@ var italicSerif = transform{
 	"e": "𝑒",
 	"f": "𝑓",
 	"g": "𝑔",
-	"h": "",
+	"h": "ℎ",
 	"i": "𝑖",
 	"j": "𝑗",
 	"k": "𝑘",
@@ -142,7 +206,7 @@ var italicSerif = transform{
 	"z": "𝑧",
 }
 
-var boldItalicSerif = transform{
+var boldItalicSerif = Transform{
 	"A": "𝑨",
 	"B": "𝑩",
 	"C": "𝑪",
@@ -197,7 +261,7 @@ var boldItalicSerif = transform{
 	"z": "𝒛",
 }
 
-var script = transform{
+var script = Transform{
 	"A": "𝒜",
 	"B": " ",
 	"C": "𝒞",
@@ -252,7 +316,7 @@ var script = transform{
 	"z": "𝓏",
 }
 
-var fraktur = transform{
+var fraktur = Transform{
 	"A": "𝔄",
 	"B": "𝔅",
 	"C": " ",
@@ -307,7 +371,7 @@ var fraktur = transform{
 	"z": "𝔷",
 }
 
-var doublestruck = transform{
+var doublestruck = Transform{
 	"A": "𝔸",
 	"B": "𝔹",
 	"C": " ",
@@ -362,7 +426,7 @@ var doublestruck = transform{
 	"z": "𝕫",
 }
 
-var frakturBold = transform{
+var frakturBold = Transform{
 	"A": "𝕬",
 	"B": "𝕭",
 	"C": "𝕮",
@@ -417,7 +481,7 @@ var frakturBold = transform{
 	"z": "𝖟",
 }
 
-var sans = transform{
+var sans = Transform{
 	"A": "𝖠",
 	"B": "𝖡",
 	"C": "𝖢",
@@ -472,7 +536,7 @@ var sans = transform{
 	"z": "𝗓",
 }
 
-var sansBold = transform{
+var boldSans = Transform{
 	"A": "𝗔",
 	"B": "𝗕",
 	"C": "𝗖",
@@ -527,7 +591,7 @@ var sansBold = transform{
 	"z": "𝘇",
 }
 
-var sansItalic = transform{
+var italicSans = Transform{
 	"A": "𝘈",
 	"B": "𝘉",
 	"C": "𝘊",
@@ -582,7 +646,7 @@ var sansItalic = transform{
 	"z": "𝘻",
 }
 
-var sansBoldItalic = transform{
+var boldItalicSans = Transform{
 	"A": "𝘼",
 	"B": "𝘽",
 	"C": "𝘾",
@@ -637,8 +701,7 @@ var sansBoldItalic = transform{
 	"z": "𝙯",
 }
 
-// TODO: fairly certain these are the same
-var monospace = transform{
+var monospace = Transform{
 	"A": "𝙰",
 	"B": "𝙱",
 	"C": "𝙲",
