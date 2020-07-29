@@ -69,7 +69,7 @@ func GetTransform(transformName string) (Transform, error) {
 // A map to small caps.
 var smallcaps = Transform{
 	"A": "ᴀ",
-	"B": "ʙ ",
+	"B": "ʙ",
 	"C": "ᴄ",
 	"D": "ᴅ",
 	"E": "ᴇ",
@@ -95,7 +95,7 @@ var smallcaps = Transform{
 	"Y": "ʏ",
 	"Z": "ᴢ",
 	"a": "ᴀ",
-	"b": "ʙ ",
+	"b": "ʙ",
 	"c": "ᴄ",
 	"d": "ᴅ",
 	"e": "ᴇ",
