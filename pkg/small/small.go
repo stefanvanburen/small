@@ -33,23 +33,41 @@ func PerformTransform(t Transform, input ...string) string {
 
 var ErrNotFound = errors.New("transform not found")
 
+func SupportedTransformations() []string {
+	return []string{
+		"smallcaps",
+		"serif-bold",
+		"serif-italic",
+		"serif-bold-italic",
+		"sans",
+		"sans-bold",
+		"sans-italic",
+		"sans-bold-italic",
+		"script",
+		"fraktur",
+		"fraktur-bold",
+		"doublestruck",
+		"monospace",
+	}
+}
+
 func GetTransform(transformName string) (Transform, error) {
 	switch transformName {
 	case "", "smallcaps":
 		return smallcaps, nil
-	case "bold-serif":
+	case "serif-bold":
 		return boldSerif, nil
-	case "italic-serif":
+	case "serif-italic":
 		return italicSerif, nil
-	case "bold-italic-serif":
+	case "serif-bold-italic":
 		return boldItalicSerif, nil
 	case "sans":
 		return sans, nil
-	case "bold-sans":
+	case "sans-bold":
 		return boldSans, nil
-	case "italic-sans":
+	case "sans-italic":
 		return italicSans, nil
-	case "bold-italic-sans":
+	case "sans-bold-italic":
 		return boldItalicSans, nil
 	case "script":
 		return script, nil

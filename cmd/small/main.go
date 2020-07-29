@@ -21,17 +21,40 @@ func main() {
 
 func run(args []string, stdout io.Writer, stdin *os.File) error {
 	fs := flag.NewFlagSet(args[0], flag.ExitOnError)
-	transformName := fs.String("transform", "", "specify transform type")
+	transformName := fs.String("t", "", "specify transform type")
+	list := fs.Bool("l", false, "list transform types")
 
 	root := &ffcli.Command{
 		FlagSet: fs,
+		UsageFunc: func(c *ffcli.Command) string {
+			return `USAGE
+  small [FLAGS] [TEXT...]
+  command | small [FLAGS]
+
+FLAGS
+  -h         print this help message
+  -l         list transform types
+  -t <type>  specify transform type
+`
+		},
 		Exec: func(_ context.Context, args []string) error {
+			if list != nil && *list {
+				fmt.Fprintln(stdout, "Supported transformations:")
+
+				for _, supportedTransformation := range small.SupportedTransformations() {
+					fmt.Fprintf(stdout, "  %s\n", supportedTransformation)
+				}
+
+				return nil
+			}
+
 			info, err := stdin.Stat()
 			if err != nil {
 				return err
 			}
 
 			if (info.Mode() & os.ModeCharDevice) == os.ModeCharDevice {
+				// Normal
 				if len(args) == 0 {
 					return flag.ErrHelp
 				}
@@ -50,6 +73,8 @@ func run(args []string, stdout io.Writer, stdin *os.File) error {
 					return err
 				}
 			} else if info.Size() > 0 {
+				// We're being piped to
+				// command | sm ...
 				name := ""
 				if transformName != nil {
 					name = *transformName
