@@ -3,7 +3,7 @@ package small
 import (
 	"testing"
 
-	qt "github.com/frankban/quicktest"
+	"github.com/matryer/is"
 )
 
 func TestTransform(t *testing.T) {
@@ -78,10 +78,10 @@ func TestTransform(t *testing.T) {
 		tc := tc
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
+			is := is.New(t)
 
 			out := PerformTransform(tc.trans, tc.given)
-			c := qt.New(t)
-			c.Assert(tc.expected, qt.DeepEquals, out)
+			is.Equal(tc.expected, out)
 		})
 	}
 
