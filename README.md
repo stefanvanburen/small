@@ -5,16 +5,16 @@ small is a ... small tool to translate text to alphabetical unicode variants.
 By default, the translation is to ꜱᴍᴀʟʟ ᴄᴀᴘꜱ, hence the name.
 
 ```commandline
-△ go get github.com/svanburen/small/cmd/small
+$ go get github.com/svanburen/small/cmd/small
 
-△ small "INFORMATION"
+$ small "INFORMATION"
 ɪɴꜰᴏʀᴍᴀɪᴛᴏɴ
 ```
 
 But other translations are supported, and more are on the way!
 
 ```commandline
-△ small -l
+$ small -l
 Supported transformations:
   smallcaps
   serif-bold
@@ -31,7 +31,7 @@ Supported transformations:
   monospace
 
 
-△ small -t fraktur "american gothic"
+$ small -t fraktur "american gothic"
 𝔞𝔪𝔢𝔯𝔦𝔠𝔞𝔫 𝔤𝔬𝔱𝔥𝔦𝔠
 ```
 
@@ -39,6 +39,6 @@ Supported transformations:
 It also behaves well as a pipe:
 
 ```commandline
-△ echo "here's some text" | small -t sans
+$ echo "here's some text" | small -t sans
 𝗁𝖾𝗋𝖾'𝗌 𝗌𝗈𝗆𝖾 𝗍𝖾𝗑𝗍
 ```
