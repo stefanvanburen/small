@@ -34,7 +34,7 @@ func run(args []string, stdout io.Writer, stdin *os.File) error {
 FLAGS
   -h         print this help message
   -l         list transform types
-  -t <type>  specify transform type
+  -t=TYPE    specify transform type
 `
 		},
 		Exec: func(_ context.Context, args []string) error {
