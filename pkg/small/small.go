@@ -37,25 +37,25 @@ func GetTransform(transformName string) (Transform, error) {
 	switch transformName {
 	case "", "smallcaps":
 		return smallcaps, nil
-	case "boldSerif":
+	case "bold-serif":
 		return boldSerif, nil
-	case "italicSerif":
+	case "italic-serif":
 		return italicSerif, nil
-	case "boldItalicSerif":
+	case "bold-italic-serif":
 		return boldItalicSerif, nil
 	case "sans":
 		return sans, nil
-	case "boldSans":
+	case "bold-sans":
 		return boldSans, nil
-	case "italicSans":
+	case "italic-sans":
 		return italicSans, nil
-	case "boldItalicSans":
+	case "bold-italic-sans":
 		return boldItalicSans, nil
 	case "script":
 		return script, nil
 	case "fraktur":
 		return fraktur, nil
-	case "frakturBold":
+	case "fraktur-bold":
 		return frakturBold, nil
 	case "doublestruck":
 		return doublestruck, nil
@@ -84,16 +84,42 @@ var smallcaps = Transform{
 	"N": "ɴ",
 	"O": "ᴏ",
 	"P": "ᴘ",
-	"Q": "", // not transformed as no Unicode smallcaps
+	"Q": "Q", // not transformed as no Unicode smallcaps
 	"R": "ʀ",
 	"S": "ꜱ",
 	"T": "ᴛ",
 	"U": "ᴜ",
 	"V": "ᴠ",
 	"W": "ᴡ",
-	"X": "", // not transformed as no Unicode smallcaps
+	"X": "X", // not transformed as no Unicode smallcaps
 	"Y": "ʏ",
 	"Z": "ᴢ",
+	"a": "ᴀ",
+	"b": "ʙ ",
+	"c": "ᴄ",
+	"d": "ᴅ",
+	"e": "ᴇ",
+	"f": "ꜰ",
+	"g": "ɢ",
+	"h": "ʜ",
+	"i": "ɪ",
+	"j": "ᴊ",
+	"k": "ᴋ",
+	"l": "ʟ",
+	"m": "ᴍ",
+	"n": "ɴ",
+	"o": "ᴏ",
+	"p": "ᴘ",
+	"q": "q", // not transformed as no Unicode smallcaps
+	"r": "ʀ",
+	"s": "ꜱ",
+	"t": "ᴛ",
+	"u": "ᴜ",
+	"v": "ᴠ",
+	"w": "ᴡ",
+	"x": "x", // not transformed as no Unicode smallcaps
+	"y": "ʏ",
+	"z": "ᴢ",
 }
 
 var boldSerif = Transform{
@@ -263,23 +289,23 @@ var boldItalicSerif = Transform{
 
 var script = Transform{
 	"A": "𝒜",
-	"B": " ",
+	"B": "ℬ",
 	"C": "𝒞",
 	"D": "𝒟",
-	"E": " ",
-	"F": " ",
+	"E": "ℰ",
+	"F": "ℱ",
 	"G": "𝒢",
-	"H": " ",
-	"I": " ",
+	"H": "ℋ",
+	"I": "ℐ",
 	"J": "𝒥",
 	"K": "𝒦",
-	"L": " ",
-	"M": " ",
+	"L": "ℒ",
+	"M": "ℳ",
 	"N": "𝒩",
 	"O": "𝒪",
 	"P": "𝒫",
 	"Q": "𝒬",
-	"R": " ",
+	"R": "ℛ",
 	"S": "𝒮",
 	"T": "𝒯",
 	"U": "𝒰",
@@ -292,9 +318,9 @@ var script = Transform{
 	"b": "𝒷",
 	"c": "𝒸",
 	"d": "𝒹",
-	"e": " ",
+	"e": "ℯ",
 	"f": "𝒻",
-	"g": " ",
+	"g": "ℊ",
 	"h": "𝒽",
 	"i": "𝒾",
 	"j": "𝒿",
@@ -302,7 +328,7 @@ var script = Transform{
 	"l": "𝓁",
 	"m": "𝓂",
 	"n": "𝓃",
-	"o": " ",
+	"o": "ℴ",
 	"p": "𝓅",
 	"q": "𝓆",
 	"r": "𝓇",
@@ -319,13 +345,13 @@ var script = Transform{
 var fraktur = Transform{
 	"A": "𝔄",
 	"B": "𝔅",
-	"C": " ",
+	"C": "ℭ",
 	"D": "𝔇",
 	"E": "𝔈",
 	"F": "𝔉",
 	"G": "𝔊",
-	"H": " ",
-	"I": " ",
+	"H": "ℌ",
+	"I": "ℑ",
 	"J": "𝔍",
 	"K": "𝔎",
 	"L": "𝔏",
@@ -334,7 +360,7 @@ var fraktur = Transform{
 	"O": "𝔒",
 	"P": "𝔓",
 	"Q": "𝔔",
-	"R": " ",
+	"R": "ℜ",
 	"S": "𝔖",
 	"T": "𝔗",
 	"U": "𝔘",
@@ -342,7 +368,7 @@ var fraktur = Transform{
 	"W": "𝔚",
 	"X": "𝔛",
 	"Y": "𝔜",
-	"Z": " ",
+	"Z": "ℨ",
 	"a": "𝔞",
 	"b": "𝔟",
 	"c": "𝔠",
@@ -374,22 +400,22 @@ var fraktur = Transform{
 var doublestruck = Transform{
 	"A": "𝔸",
 	"B": "𝔹",
-	"C": " ",
+	"C": "ℂ",
 	"D": "𝔻",
 	"E": "𝔼",
 	"F": "𝔽",
 	"G": "𝔾",
-	"H": " ",
+	"H": "ℍ",
 	"I": "𝕀",
 	"J": "𝕁",
 	"K": "𝕂",
 	"L": "𝕃",
 	"M": "𝕄",
-	"N": " ",
+	"N": "ℕ",
 	"O": "𝕆",
-	"P": " ",
-	"Q": " ",
-	"R": " ",
+	"P": "ℙ",
+	"Q": "ℚ",
+	"R": "ℝ",
 	"S": "𝕊",
 	"T": "𝕋",
 	"U": "𝕌",
@@ -397,7 +423,7 @@ var doublestruck = Transform{
 	"W": "𝕎",
 	"X": "𝕏",
 	"Y": "𝕐",
-	"Z": " ",
+	"Z": "ℤ",
 	"a": "𝕒",
 	"b": "𝕓",
 	"c": "𝕔",

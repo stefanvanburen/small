@@ -21,7 +21,7 @@ func main() {
 }
 
 func run(args []string, stdout io.Writer, stdin *os.File) error {
-	fs := flag.NewFlagSet("small", flag.ExitOnError)
+	fs := flag.NewFlagSet(args[0], flag.ExitOnError)
 	transformName := fs.String("transform", "", "specify transform type")
 
 	if err := ff.Parse(fs, args[1:]); err != nil {
