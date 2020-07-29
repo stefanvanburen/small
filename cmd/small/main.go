@@ -8,7 +8,6 @@ import (
 	"io"
 	"os"
 
-	"github.com/peterbourgon/ff"
 	"github.com/peterbourgon/ff/v3/ffcli"
 	"github.com/svanburen/small/pkg/small"
 )
@@ -23,10 +22,6 @@ func main() {
 func run(args []string, stdout io.Writer, stdin *os.File) error {
 	fs := flag.NewFlagSet(args[0], flag.ExitOnError)
 	transformName := fs.String("transform", "", "specify transform type")
-
-	if err := ff.Parse(fs, args[1:]); err != nil {
-		return err
-	}
 
 	root := &ffcli.Command{
 		FlagSet: fs,
