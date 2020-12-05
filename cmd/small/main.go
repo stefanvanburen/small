@@ -53,20 +53,20 @@ FLAGS
 				return err
 			}
 
+			name := ""
+			if transformName != nil {
+				name = *transformName
+			}
+
+			transform, err := small.GetTransform(name)
+			if err != nil {
+				return err
+			}
+
 			if (info.Mode() & os.ModeCharDevice) == os.ModeCharDevice {
 				// Normal
 				if len(args) == 0 {
 					return flag.ErrHelp
-				}
-
-				name := ""
-				if transformName != nil {
-					name = *transformName
-				}
-
-				transform, err := small.GetTransform(name)
-				if err != nil {
-					return err
 				}
 
 				if _, err := fmt.Fprintln(stdout, small.PerformTransform(transform, args...)); err != nil {
@@ -75,21 +75,11 @@ FLAGS
 			} else if info.Size() > 0 {
 				// We're being piped to
 				// command | sm ...
-				name := ""
-				if transformName != nil {
-					name = *transformName
-				}
-
-				transform, err := small.GetTransform(name)
-				if err != nil {
-					return err
-				}
-
 				scanner := bufio.NewScanner(stdin)
 				for scanner.Scan() {
 					str := small.PerformTransform(transform, scanner.Text())
-					_, err = fmt.Fprintln(stdout, str)
-					if err != nil {
+
+					if _, err = fmt.Fprintln(stdout, str); err != nil {
 						return err
 					}
 				}
