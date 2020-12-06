@@ -84,5 +84,4 @@ func TestTransform(t *testing.T) {
 			is.Equal(tc.expected, out)
 		})
 	}
-
 }
