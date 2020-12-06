@@ -14,7 +14,7 @@ import (
 
 func main() {
 	if err := run(os.Args, os.Stdout, os.Stdin); err != nil {
-		fmt.Fprintf(os.Stderr, "error: %v\n", err)
+		fmt.Fprintf(os.Stderr, "error: %s\n", err)
 		os.Exit(1)
 	}
 }
@@ -50,17 +50,17 @@ FLAGS
 
 			info, err := stdin.Stat()
 			if err != nil {
-				return err
+				return fmt.Errorf("can't access stdin: %w", err)
 			}
 
-			name := ""
+			var name string
 			if transformName != nil {
 				name = *transformName
 			}
 
-			transform, err := small.GetTransform(name)
-			if err != nil {
-				return err
+			transform := small.GetTransform(name)
+			if transform == nil {
+				return fmt.Errorf("invalid transform: %s", name)
 			}
 
 			if (info.Mode() & os.ModeCharDevice) == os.ModeCharDevice {
@@ -69,18 +69,18 @@ FLAGS
 					return flag.ErrHelp
 				}
 
-				if _, err := fmt.Fprintln(stdout, small.PerformTransform(transform, args...)); err != nil {
-					return err
+				if _, err := fmt.Fprintln(stdout, small.PerformTransform(*transform, args...)); err != nil {
+					return fmt.Errorf("could not write to stdout: %w", err)
 				}
 			} else if info.Size() > 0 {
 				// We're being piped to
 				// command | sm ...
 				scanner := bufio.NewScanner(stdin)
 				for scanner.Scan() {
-					str := small.PerformTransform(transform, scanner.Text())
+					str := small.PerformTransform(*transform, scanner.Text())
 
 					if _, err = fmt.Fprintln(stdout, str); err != nil {
-						return err
+						return fmt.Errorf("could not write to stdout: %w", err)
 					}
 				}
 			}

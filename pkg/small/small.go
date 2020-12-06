@@ -51,36 +51,36 @@ func SupportedTransformations() []string {
 	}
 }
 
-func GetTransform(transformName string) (Transform, error) {
-	switch transformName {
+func GetTransform(name string) *Transform {
+	switch name {
 	case "", "smallcaps":
-		return smallcaps, nil
+		return &smallcaps
 	case "serif-bold":
-		return boldSerif, nil
+		return &boldSerif
 	case "serif-italic":
-		return italicSerif, nil
+		return &italicSerif
 	case "serif-bold-italic":
-		return boldItalicSerif, nil
+		return &boldItalicSerif
 	case "sans":
-		return sans, nil
+		return &sans
 	case "sans-bold":
-		return boldSans, nil
+		return &boldSans
 	case "sans-italic":
-		return italicSans, nil
+		return &italicSans
 	case "sans-bold-italic":
-		return boldItalicSans, nil
+		return &boldItalicSans
 	case "script":
-		return script, nil
+		return &script
 	case "fraktur":
-		return fraktur, nil
+		return &fraktur
 	case "fraktur-bold":
-		return frakturBold, nil
+		return &frakturBold
 	case "doublestruck":
-		return doublestruck, nil
+		return &doublestruck
 	case "monospace":
-		return monospace, nil
+		return &monospace
 	default:
-		return nil, ErrNotFound
+		return nil
 	}
 }
 
