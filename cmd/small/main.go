@@ -25,6 +25,7 @@ func run(args []string, stdout io.Writer, stdin *os.File) error {
 	list := fs.Bool("l", false, "list transform types")
 
 	root := &ffcli.Command{
+		Name:    "small",
 		FlagSet: fs,
 		UsageFunc: func(c *ffcli.Command) string {
 			return `USAGE
