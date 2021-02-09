@@ -19,13 +19,15 @@ func main() {
 	}
 }
 
+const name = "small"
+
 func run(args []string, stdout io.Writer, stdin *os.File) error {
-	fs := flag.NewFlagSet(args[0], flag.ExitOnError)
+	fs := flag.NewFlagSet(name, flag.ExitOnError)
 	transformName := fs.String("t", "", "specify transform type")
 	list := fs.Bool("l", false, "list transform types")
 
 	root := &ffcli.Command{
-		Name:    "small",
+		Name:    name,
 		FlagSet: fs,
 		UsageFunc: func(c *ffcli.Command) string {
 			return `USAGE
