@@ -13,6 +13,11 @@ func TestTransform(t *testing.T) {
 		given    string
 		expected string
 	}{
+		"smallcaps": {
+			smallcaps,
+			"pack my box with five dozen liquor jugs",
+			"ᴘᴀᴄᴋ ᴍʏ ʙᴏx ᴡɪᴛʜ ꜰɪᴠᴇ ᴅᴏᴢᴇɴ ʟɪꞯᴜᴏʀ ᴊᴜɢꜱ",
+		},
 		"boldSansStr": {
 			boldSans,
 			"pack my box with five dozen liquor jugs",
