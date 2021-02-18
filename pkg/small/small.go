@@ -1,3 +1,5 @@
+// Package small performs alphabetical translations from ascii to various
+// unicode variants.
 package small
 
 import (
