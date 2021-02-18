@@ -108,7 +108,7 @@ var smallcaps = Transform{
 	"N": "ɴ",
 	"O": "ᴏ",
 	"P": "ᴘ",
-	"Q": "Q", // not transformed as no Unicode smallcaps
+	"Q": "ꞯ",
 	"R": "ʀ",
 	"S": "ꜱ",
 	"T": "ᴛ",
@@ -134,7 +134,7 @@ var smallcaps = Transform{
 	"n": "ɴ",
 	"o": "ᴏ",
 	"p": "ᴘ",
-	"q": "q", // not transformed as no Unicode smallcaps
+	"q": "ꞯ",
 	"r": "ʀ",
 	"s": "ꜱ",
 	"t": "ᴛ",
