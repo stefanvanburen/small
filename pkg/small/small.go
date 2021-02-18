@@ -4,6 +4,7 @@ package small
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 )
 
@@ -53,37 +54,40 @@ func SupportedTransformations() []string {
 	}
 }
 
-func GetTransform(name string) *Transform {
+func GetTransform(name string) (Transform, error) {
+	var t Transform
 	switch name {
 	case "", "smallcaps":
-		return &smallcaps
+		t = smallcaps
 	case "serif-bold":
-		return &boldSerif
+		t = boldSerif
 	case "serif-italic":
-		return &italicSerif
+		t = italicSerif
 	case "serif-bold-italic":
-		return &boldItalicSerif
+		t = boldItalicSerif
 	case "sans":
-		return &sans
+		t = sans
 	case "sans-bold":
-		return &boldSans
+		t = boldSans
 	case "sans-italic":
-		return &italicSans
+		t = italicSans
 	case "sans-bold-italic":
-		return &boldItalicSans
+		t = boldItalicSans
 	case "script":
-		return &script
+		t = script
 	case "fraktur":
-		return &fraktur
+		t = fraktur
 	case "fraktur-bold":
-		return &frakturBold
+		t = frakturBold
 	case "doublestruck":
-		return &doublestruck
+		t = doublestruck
 	case "monospace":
-		return &monospace
+		t = monospace
 	default:
-		return nil
+		return t, fmt.Errorf("invalid transform: %s", name)
 	}
+
+	return t, nil
 }
 
 // A map to small caps.

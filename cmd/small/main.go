@@ -61,9 +61,9 @@ FLAGS
 				name = *transformName
 			}
 
-			transform := small.GetTransform(name)
-			if transform == nil {
-				return fmt.Errorf("invalid transform: %s", name)
+			transform, err := small.GetTransform(name)
+			if err != nil {
+				return err
 			}
 
 			if (info.Mode() & os.ModeCharDevice) == os.ModeCharDevice {
@@ -72,7 +72,7 @@ FLAGS
 					return flag.ErrHelp
 				}
 
-				if _, err := fmt.Fprintln(stdout, small.PerformTransform(*transform, args...)); err != nil {
+				if _, err := fmt.Fprintln(stdout, small.PerformTransform(transform, args...)); err != nil {
 					return fmt.Errorf("could not write to stdout: %w", err)
 				}
 			} else if info.Size() > 0 {
@@ -80,7 +80,7 @@ FLAGS
 				// command | sm ...
 				scanner := bufio.NewScanner(stdin)
 				for scanner.Scan() {
-					str := small.PerformTransform(*transform, scanner.Text())
+					str := small.PerformTransform(transform, scanner.Text())
 
 					if _, err = fmt.Fprintln(stdout, str); err != nil {
 						return fmt.Errorf("could not write to stdout: %w", err)
