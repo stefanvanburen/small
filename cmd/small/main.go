@@ -1,7 +1,7 @@
 package main
 
 import (
-	"bufio"
+	"bytes"
 	"context"
 	"flag"
 	"fmt"
@@ -31,7 +31,7 @@ func run(args []string, stdout io.Writer, stdin *os.File) error {
 		FlagSet: fs,
 		UsageFunc: func(c *ffcli.Command) string {
 			return `USAGE
-  small [FLAGS] [TEXT...]
+  small [FLAGS] TEXT
   command | small [FLAGS]
 
 FLAGS
@@ -53,7 +53,7 @@ FLAGS
 
 			info, err := stdin.Stat()
 			if err != nil {
-				return fmt.Errorf("can't access stdin: %w", err)
+				return fmt.Errorf("can't access stdin: %s", err)
 			}
 
 			var name string
@@ -72,19 +72,22 @@ FLAGS
 					return flag.ErrHelp
 				}
 
-				if _, err := fmt.Fprintln(stdout, small.PerformTransform(transform, args...)); err != nil {
-					return fmt.Errorf("could not write to stdout: %w", err)
+				if len(args) > 1 {
+					return flag.ErrHelp
 				}
+
+				buf := bytes.NewReader([]byte(args[0]))
+				if err := small.PerformTransform(transform, buf, stdout); err != nil {
+					return fmt.Errorf("could not write to stdout: %s", err)
+				}
+
+				// To play nicely with the terminal, write out a newline.
+				stdout.Write([]byte("\n"))
 			} else if info.Size() > 0 {
 				// We're being piped to
-				// command | sm ...
-				scanner := bufio.NewScanner(stdin)
-				for scanner.Scan() {
-					str := small.PerformTransform(transform, scanner.Text())
-
-					if _, err = fmt.Fprintln(stdout, str); err != nil {
-						return fmt.Errorf("could not write to stdout: %w", err)
-					}
+				// command | small ...
+				if err := small.PerformTransform(transform, stdin, stdout); err != nil {
+					return fmt.Errorf("could not write to stdout: %s", err)
 				}
 			}
 

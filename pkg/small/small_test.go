@@ -1,6 +1,7 @@
 package small
 
 import (
+	"bytes"
 	"testing"
 
 	"github.com/matryer/is"
@@ -80,8 +81,10 @@ func TestTransform(t *testing.T) {
 			t.Parallel()
 			is := is.New(t)
 
-			out := PerformTransform(tc.trans, tc.given)
-			is.Equal(tc.expected, out)
+			var out bytes.Buffer
+			err := PerformTransform(tc.trans, bytes.NewBufferString(tc.given), &out)
+			is.NoErr(err)
+			is.Equal(tc.expected, out.String())
 		})
 	}
 }

@@ -3,35 +3,35 @@
 package small
 
 import (
+	"bufio"
 	"errors"
 	"fmt"
-	"strings"
+	"io"
 )
 
 type Transform map[string]string
 
-func PerformTransform(t Transform, input ...string) string {
-	sb := strings.Builder{}
-	numInputs := len(input)
+func PerformTransform(t Transform, input io.Reader, output io.Writer) error {
+	bufReader := bufio.NewReader(input)
+	bufWriter := bufio.NewWriter(output)
+	defer bufWriter.Flush()
 
-	for i, strs := range input {
-		for _, char := range strs {
-			c := string(char)
-
-			if val, ok := t[c]; ok {
-				sb.WriteString(val)
-			} else {
-				sb.WriteString(c)
+	for {
+		c, err := bufReader.ReadByte()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				return nil
 			}
+
+			return err
 		}
 
-		if numInputs-1 != i {
-			// Write space if we're taking in multiple inputs
-			sb.WriteString(" ")
+		if val, ok := t[string(c)]; ok {
+			bufWriter.WriteString(val)
+		} else {
+			bufWriter.WriteByte(c)
 		}
 	}
-
-	return sb.String()
 }
 
 var ErrNotFound = errors.New("transform not found")
