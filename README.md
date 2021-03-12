@@ -5,7 +5,7 @@ small is a ... small tool to translate text to alphabetical unicode variants.
 By default, the translation is to ꜱᴍᴀʟʟ ᴄᴀᴘꜱ, hence the name.
 
 ```commandline
-$ go get github.com/svanburen/small/cmd/small
+$ go install github.com/svanburen/small/cmd/small@latest
 
 $ small "INFORMATION"
 ɪɴꜰᴏʀᴍᴀɪᴛᴏɴ
