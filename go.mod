@@ -1,4 +1,4 @@
-module github.com/svanburen/small
+module github.com/stefanvanburen/small
 
 go 1.14
 

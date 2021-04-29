@@ -9,7 +9,7 @@ import (
 	"os"
 
 	"github.com/peterbourgon/ff/v3/ffcli"
-	"github.com/svanburen/small/pkg/small"
+	"github.com/stefanvanburen/small/pkg/small"
 )
 
 func main() {
