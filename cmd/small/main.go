@@ -9,6 +9,7 @@ import (
 	"os"
 
 	"github.com/peterbourgon/ff/v3/ffcli"
+
 	"github.com/stefanvanburen/small/pkg/small"
 )
 
