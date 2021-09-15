@@ -59,39 +59,36 @@ func SupportedTransformations() []string {
 }
 
 func GetTransform(name string) (Transform, error) {
-	var t Transform
 	switch name {
 	case "", "smallcaps":
-		t = smallcaps
+		return smallcaps, nil
 	case "serif-bold":
-		t = boldSerif
+		return boldSerif, nil
 	case "serif-italic":
-		t = italicSerif
+		return italicSerif, nil
 	case "serif-bold-italic":
-		t = boldItalicSerif
+		return boldItalicSerif, nil
 	case "sans":
-		t = sans
+		return sans, nil
 	case "sans-bold":
-		t = boldSans
+		return boldSans, nil
 	case "sans-italic":
-		t = italicSans
+		return italicSans, nil
 	case "sans-bold-italic":
-		t = boldItalicSans
+		return boldItalicSans, nil
 	case "script":
-		t = script
+		return script, nil
 	case "fraktur":
-		t = fraktur
+		return fraktur, nil
 	case "fraktur-bold":
-		t = frakturBold
+		return frakturBold, nil
 	case "doublestruck":
-		t = doublestruck
+		return doublestruck, nil
 	case "monospace":
-		t = monospace
+		return monospace, nil
 	default:
-		return t, fmt.Errorf("invalid transform: %s", name)
+		return nil, fmt.Errorf("invalid transform: %s", name)
 	}
-
-	return t, nil
 }
 
 // A map to small caps.
