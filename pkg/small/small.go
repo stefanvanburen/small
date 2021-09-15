@@ -27,9 +27,13 @@ func PerformTransform(t Transform, input io.Reader, output io.Writer) error {
 		}
 
 		if val, ok := t[string(c)]; ok {
-			bufWriter.WriteString(val)
+			if _, err := bufWriter.WriteString(val); err != nil {
+				return err
+			}
 		} else {
-			bufWriter.WriteByte(c)
+			if err := bufWriter.WriteByte(c); err != nil {
+				return err
+			}
 		}
 	}
 }
