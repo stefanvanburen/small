@@ -4,5 +4,5 @@ go 1.14
 
 require (
 	github.com/matryer/is v1.4.0
-	github.com/peterbourgon/ff/v3 v3.1.0
+	github.com/peterbourgon/ff/v3 v3.1.2
 )
