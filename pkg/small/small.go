@@ -38,8 +38,6 @@ func PerformTransform(t Transform, input io.Reader, output io.Writer) error {
 	}
 }
 
-var ErrNotFound = errors.New("transform not found")
-
 func SupportedTransformations() []string {
 	return []string{
 		"smallcaps",
@@ -91,7 +89,6 @@ func GetTransform(name string) (Transform, error) {
 	}
 }
 
-// A map to small caps.
 var smallcaps = Transform{
 	"A": "ᴀ",
 	"B": "ʙ",
