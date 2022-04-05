@@ -4,7 +4,7 @@ small is a ... small tool to translate text to alphabetical unicode variants.
 
 By default, the translation is to ꜱᴍᴀʟʟ ᴄᴀᴘꜱ, hence the name.
 
-```commandline
+```console
 $ go install github.com/stefanvanburen/small/cmd/small@latest
 
 $ small "INFORMATION"
@@ -13,7 +13,7 @@ $ small "INFORMATION"
 
 But other translations are supported, and more are on the way!
 
-```commandline
+```console
 $ small -l
 Supported transformations:
   smallcaps
@@ -38,7 +38,7 @@ $ small -t fraktur "american gothic"
 
 It also behaves well as a pipe:
 
-```commandline
+```console
 $ echo "here's some text" | small -t sans
 𝗁𝖾𝗋𝖾'𝗌 𝗌𝗈𝗆𝖾 𝗍𝖾𝗑𝗍
 ```
