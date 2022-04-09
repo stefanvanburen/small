@@ -24,8 +24,10 @@ const name = "small"
 
 func run(args []string, stdout io.Writer, stdin *os.File) error {
 	fs := flag.NewFlagSet(name, flag.ExitOnError)
-	transformName := fs.String("t", "", "specify transform type")
-	list := fs.Bool("l", false, "list transform types")
+	var (
+		transformName = fs.String("t", "", "specify transform type")
+		list          = fs.Bool("l", false, "list transform types")
+	)
 
 	root := &ffcli.Command{
 		Name:    name,
@@ -42,7 +44,7 @@ FLAGS
 `
 		},
 		Exec: func(_ context.Context, args []string) error {
-			if list != nil && *list {
+			if *list {
 				fmt.Fprintln(stdout, "Supported transformations:")
 
 				for _, supportedTransformation := range small.SupportedTransformations() {
@@ -57,24 +59,14 @@ FLAGS
 				return fmt.Errorf("can't access stdin: %s", err)
 			}
 
-			var name string
-			if transformName != nil {
-				name = *transformName
-			}
-
-			transform, err := small.GetTransform(name)
+			transform, err := small.GetTransform(*transformName)
 			if err != nil {
 				return err
 			}
 
 			if (info.Mode() & os.ModeCharDevice) == os.ModeCharDevice {
-				// Normal
-				if len(args) == 0 {
-					return flag.ErrHelp
-				}
-
-				if len(args) > 1 {
-					return flag.ErrHelp
+				if len(args) != 1 {
+					return fmt.Errorf("only a single argument is supported")
 				}
 
 				buf := bytes.NewReader([]byte(args[0]))
