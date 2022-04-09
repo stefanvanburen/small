@@ -30,19 +30,9 @@ func run(args []string, stdout io.Writer, stdin *os.File) error {
 	)
 
 	root := &ffcli.Command{
-		Name:    name,
-		FlagSet: fs,
-		UsageFunc: func(c *ffcli.Command) string {
-			return `USAGE
-  small [FLAGS] TEXT
-  command | small [FLAGS]
-
-FLAGS
-  -h         print this help message
-  -l         list transform types
-  -t=TYPE    specify transform type
-`
-		},
+		Name:       name,
+		FlagSet:    fs,
+		ShortUsage: "small [FLAGS] <text>",
 		Exec: func(_ context.Context, args []string) error {
 			if *list {
 				fmt.Fprintln(stdout, "Supported transformations:")
