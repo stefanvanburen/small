@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"sort"
+	"text/tabwriter"
 
 	"github.com/peterbourgon/ff/v3/ffcli"
 
@@ -35,13 +37,25 @@ func run(args []string, stdout io.Writer, stdin *os.File) error {
 		ShortUsage: "small [FLAGS] <text>",
 		Exec: func(_ context.Context, args []string) error {
 			if *list {
-				fmt.Fprintln(stdout, "Supported transformations:")
-
-				for _, supportedTransformation := range small.SupportedTransformations() {
-					fmt.Fprintf(stdout, "  %s\n", supportedTransformation)
+				supportedTransforms := small.SupportedTransformations()
+				supportedTransformNames := make([]string, 0, len(supportedTransforms))
+				for supportedTransformName := range supportedTransforms {
+					supportedTransformNames = append(supportedTransformNames, supportedTransformName)
 				}
-
-				return nil
+				sort.Strings(supportedTransformNames)
+				w := tabwriter.NewWriter(os.Stdout, 0, 0, 1, ' ', 0)
+				for _, name := range supportedTransformNames {
+					out := &bytes.Buffer{}
+					small.PerformTransform(supportedTransforms[name], bytes.NewBufferString(name), out)
+					fmt.Fprintf(
+						w,
+						"  %s\t%s\n",
+						name,
+						out,
+					)
+				}
+				fmt.Fprintln(stdout, "Supported transformations:")
+				return w.Flush()
 			}
 
 			info, err := stdin.Stat()

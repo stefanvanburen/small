@@ -38,21 +38,21 @@ func PerformTransform(t Transform, input io.Reader, output io.Writer) error {
 	}
 }
 
-func SupportedTransformations() []string {
-	return []string{
-		"smallcaps",
-		"serif-bold",
-		"serif-italic",
-		"serif-bold-italic",
-		"sans",
-		"sans-bold",
-		"sans-italic",
-		"sans-bold-italic",
-		"script",
-		"fraktur",
-		"fraktur-bold",
-		"doublestruck",
-		"monospace",
+func SupportedTransformations() map[string]Transform {
+	return map[string]Transform{
+		"smallcaps":         smallcaps,
+		"serif-bold":        boldSerif,
+		"serif-italic":      italicSerif,
+		"serif-bold-italic": boldItalicSerif,
+		"sans":              sans,
+		"sans-bold":         boldSans,
+		"sans-italic":       italicSans,
+		"sans-bold-italic":  boldItalicSans,
+		"script":            script,
+		"fraktur":           fraktur,
+		"fraktur-bold":      frakturBold,
+		"doublestruck":      doublestruck,
+		"monospace":         monospace,
 	}
 }
 
