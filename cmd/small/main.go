@@ -12,7 +12,7 @@ import (
 
 	"github.com/peterbourgon/ff/v3/ffcli"
 
-	"github.com/stefanvanburen/small/pkg/small"
+	"github.com/stefanvanburen/small/internal/small"
 )
 
 func main() {
