@@ -6,10 +6,11 @@ import (
 )
 
 func TestTransform(t *testing.T) {
-	tests := map[string]struct {
-		trans    Transform
-		given    string
-		expected string
+	t.Parallel()
+	for name, tc := range map[string]struct {
+		trans Transform
+		in    string
+		want  string
 	}{
 		"smallcaps": {
 			smallcaps,
@@ -76,19 +77,17 @@ func TestTransform(t *testing.T) {
 			"PACK MY BOX WITH FIVE DOZEN LIQUOR JUGS",
 			"𝐏𝐀𝐂𝐊 𝐌𝐘 𝐁𝐎𝐗 𝐖𝐈𝐓𝐇 𝐅𝐈𝐕𝐄 𝐃𝐎𝐙𝐄𝐍 𝐋𝐈𝐐𝐔𝐎𝐑 𝐉𝐔𝐆𝐒",
 		},
-	}
-
-	for name, tc := range tests {
+	} {
 		tc := tc
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
 			var out bytes.Buffer
-			err := PerformTransform(tc.trans, bytes.NewBufferString(tc.given), &out)
+			err := PerformTransform(tc.trans, bytes.NewBufferString(tc.in), &out)
 			if err != nil {
-				t.Errorf("expected no error, got %v", err)
+				t.Errorf("want err = nil, got %v", err)
 			}
-			if got := out.String(); tc.expected != got {
-				t.Errorf("expected %s, got %s", tc.expected, got)
+			if got := out.String(); tc.want != got {
+				t.Errorf("PerformTransform(%q, %q) = %q; want %q", tc.trans, tc.in, tc.want, got)
 			}
 		})
 	}
