@@ -3,8 +3,6 @@ package small
 import (
 	"bytes"
 	"testing"
-
-	"github.com/matryer/is"
 )
 
 func TestTransform(t *testing.T) {
@@ -84,12 +82,14 @@ func TestTransform(t *testing.T) {
 		tc := tc
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
-			is := is.New(t)
-
 			var out bytes.Buffer
 			err := PerformTransform(tc.trans, bytes.NewBufferString(tc.given), &out)
-			is.NoErr(err)
-			is.Equal(tc.expected, out.String())
+			if err != nil {
+				t.Errorf("expected no error, got %v", err)
+			}
+			if got := out.String(); tc.expected != got {
+				t.Errorf("expected %s, got %s", tc.expected, got)
+			}
 		})
 	}
 }
