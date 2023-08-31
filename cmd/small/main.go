@@ -3,15 +3,11 @@ package main
 import (
 	"bytes"
 	"context"
-	"flag"
 	"fmt"
 	"io"
 	"os"
-	"sort"
-	"strings"
-	"text/tabwriter"
 
-	"github.com/peterbourgon/ff/v3/ffcli"
+	"github.com/peterbourgon/ff/v4"
 
 	"github.com/stefanvanburen/small/internal/small"
 )
@@ -26,53 +22,19 @@ func main() {
 const name = "small"
 
 func run(args []string, stdout io.Writer, stdin *os.File) error {
-	fs := flag.NewFlagSet(name, flag.ExitOnError)
-	var transformName = fs.String("t", "", "specify transform type")
+	fs := ff.NewFlags(name)
+	var transformFlag = fs.String('t', "--transform", "", "specify transform")
 
-	root := &ffcli.Command{
-		Name:    name,
-		FlagSet: fs,
-		UsageFunc: func(_ *ffcli.Command) string {
-			var usage strings.Builder
-			usage.WriteString(`USAGE
-  small [-t] <text>
-
-FLAGS
-  -t ... specify transform type
-
-SUPPORTED TRANSFORMS
-`)
-
-			// sort the list of supported transforms, for stable output
-			supportedTransforms := small.SupportedTransformations()
-			supportedTransformNames := make([]string, 0, len(supportedTransforms))
-			for supportedTransformName := range supportedTransforms {
-				supportedTransformNames = append(supportedTransformNames, supportedTransformName)
-			}
-			sort.Strings(supportedTransformNames)
-
-			w := tabwriter.NewWriter(&usage, 0, 0, 1, ' ', 0)
-			for _, name := range supportedTransformNames {
-				out := &bytes.Buffer{}
-				small.PerformTransform(supportedTransforms[name], bytes.NewBufferString(name), out)
-				fmt.Fprintf(
-					w,
-					"  %s\t%s\n",
-					name,
-					out,
-				)
-			}
-			w.Flush()
-
-			return usage.String()
-		},
+	root := &ff.Command{
+		Name:  name,
+		Flags: fs,
 		Exec: func(_ context.Context, args []string) error {
 			info, err := stdin.Stat()
 			if err != nil {
 				return fmt.Errorf("can't access stdin: %s", err)
 			}
 
-			transform, err := small.GetTransform(*transformName)
+			transform, err := small.GetTransform(*transformFlag)
 			if err != nil {
 				return err
 			}
