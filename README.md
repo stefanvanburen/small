@@ -1,6 +1,6 @@
 # small
 
-small is a ... small tool to translate text to alphabetical unicode variants.
+small is a ... small tool to translate text to alphabetical Unicode variants.
 
 By default, the translation is to ꜱᴍᴀʟʟ ᴄᴀᴘꜱ, hence the name.
 
