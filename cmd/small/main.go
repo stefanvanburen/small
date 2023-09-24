@@ -22,7 +22,7 @@ func main() {
 const name = "small"
 
 func run(args []string, stdout io.Writer, stdin *os.File) error {
-	fs := ff.NewFlags(name)
+	fs := ff.NewFlagSet(name)
 	var transformFlag = fs.String('t', "--transform", "", "specify transform")
 
 	root := &ff.Command{
