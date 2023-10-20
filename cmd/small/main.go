@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"sort"
+	"slices"
 	"strings"
 	"text/tabwriter"
 
@@ -49,7 +49,7 @@ SUPPORTED TRANSFORMS
 			for supportedTransformName := range supportedTransforms {
 				supportedTransformNames = append(supportedTransformNames, supportedTransformName)
 			}
-			sort.Strings(supportedTransformNames)
+			slices.Sort(supportedTransformNames)
 
 			w := tabwriter.NewWriter(&usage, 0, 0, 1, ' ', 0)
 			for _, name := range supportedTransformNames {
