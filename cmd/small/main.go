@@ -26,12 +26,12 @@ func main() {
 const name = "small"
 
 func run(args []string, stdout io.Writer, stdin *os.File) error {
-	fs := flag.NewFlagSet(name, flag.ExitOnError)
-	var transformName = fs.String("t", "", "specify transform type")
+	flagSet := flag.NewFlagSet(name, flag.ExitOnError)
+	var transformName = flagSet.String("t", "", "specify transform type")
 
 	root := &ffcli.Command{
 		Name:    name,
-		FlagSet: fs,
+		FlagSet: flagSet,
 		UsageFunc: func(_ *ffcli.Command) string {
 			var usage strings.Builder
 			usage.WriteString(`USAGE
@@ -51,18 +51,18 @@ SUPPORTED TRANSFORMS
 			}
 			slices.Sort(supportedTransformNames)
 
-			w := tabwriter.NewWriter(&usage, 0, 0, 1, ' ', 0)
+			tabWriter := tabwriter.NewWriter(&usage, 0, 0, 1, ' ', 0)
 			for _, name := range supportedTransformNames {
 				out := &bytes.Buffer{}
 				small.PerformTransform(supportedTransforms[name], bytes.NewBufferString(name), out)
 				fmt.Fprintf(
-					w,
+					tabWriter,
 					"  %s\t%s\n",
 					name,
 					out,
 				)
 			}
-			w.Flush()
+			tabWriter.Flush()
 
 			return usage.String()
 		},
