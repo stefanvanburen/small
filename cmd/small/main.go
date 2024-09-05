@@ -6,6 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"maps"
 	"os"
 	"slices"
 	"strings"
@@ -45,10 +46,7 @@ SUPPORTED TRANSFORMS
 
 			// sort the list of supported transforms, for stable output
 			supportedTransforms := small.SupportedTransformations()
-			supportedTransformNames := make([]string, 0, len(supportedTransforms))
-			for supportedTransformName := range supportedTransforms {
-				supportedTransformNames = append(supportedTransformNames, supportedTransformName)
-			}
+			supportedTransformNames := slices.Collect(maps.Keys(supportedTransforms))
 			slices.Sort(supportedTransformNames)
 
 			tabWriter := tabwriter.NewWriter(&usage, 0, 0, 1, ' ', 0)
