@@ -78,7 +78,6 @@ func TestTransform(t *testing.T) {
 			"𝐏𝐀𝐂𝐊 𝐌𝐘 𝐁𝐎𝐗 𝐖𝐈𝐓𝐇 𝐅𝐈𝐕𝐄 𝐃𝐎𝐙𝐄𝐍 𝐋𝐈𝐐𝐔𝐎𝐑 𝐉𝐔𝐆𝐒",
 		},
 	} {
-		tc := tc
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
 			var out bytes.Buffer
