@@ -17,16 +17,16 @@ import (
 	"github.com/stefanvanburen/small/internal/small"
 )
 
+const name = "small"
+
 func main() {
-	if err := run(os.Args, os.Stdout, os.Stdin); err != nil {
+	if err := run(context.Background(), os.Args, os.Stdout, os.Stdin); err != nil {
 		fmt.Fprintf(os.Stderr, "error: %s\n", err)
 		os.Exit(1)
 	}
 }
 
-const name = "small"
-
-func run(args []string, stdout io.Writer, stdin *os.File) error {
+func run(ctx context.Context, args []string, stdout io.Writer, stdin *os.File) error {
 	flagSet := flag.NewFlagSet(name, flag.ExitOnError)
 	var transformName = flagSet.String("t", "", "specify transform type")
 
@@ -99,5 +99,5 @@ SUPPORTED TRANSFORMS
 		},
 	}
 
-	return root.ParseAndRun(context.Background(), args[1:])
+	return root.ParseAndRun(ctx, args[1:])
 }

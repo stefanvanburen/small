@@ -22,10 +22,8 @@ func PerformTransform(t Transform, input io.Reader, output io.Writer) error {
 			if errors.Is(err, io.EOF) {
 				return nil
 			}
-
 			return err
 		}
-
 		if val, ok := t[string(c)]; ok {
 			if _, err := bufWriter.WriteString(val); err != nil {
 				return err
