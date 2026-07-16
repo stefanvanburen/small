@@ -1,3 +1,3 @@
-module github.com/stefanvanburen/small
+module go.vanburen.xyz/small
 
 go 1.25.0

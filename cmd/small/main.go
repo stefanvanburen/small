@@ -11,7 +11,7 @@ import (
 	"strings"
 	"text/tabwriter"
 
-	"github.com/stefanvanburen/small/internal/small"
+	"go.vanburen.xyz/small/internal/small"
 )
 
 const name = "small"
